@@ -1,0 +1,42 @@
+<!-- templates/auth/login.html -->
+{% extends 'base.html' %}
+
+{% block navbar %}{% endblock %}
+
+{% block title %}تسجيل الدخول{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow mt-5">
+            <div class="card-header bg-dark text-white text-center">
+                <h4>🔐 تسجيل الدخول</h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <!-- ليش csrf_token؟ حماية من هجمات CSRF -->
+                    
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label">{{ field.label }}</label>
+                            {{ field }}
+                            <!-- عرض الأخطاء -->
+                            {% if field.errors %}
+                                <div class="text-danger small">{{ field.errors }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+
+                    <button type="submit" class="btn btn-dark w-100">دخول</button>
+                </form>
+                <hr>
+                <p class="text-center">ما عندك حساب؟ 
+                    <a href="/register/">سجّل الآن</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

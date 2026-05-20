@@ -1,0 +1,32 @@
+<!-- templates/navbar.html -->
+<!-- شريط التنقل - يتغير حسب حالة المستخدم -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        
+        <a class="navbar-brand" href="/">🚚 نظام التوصيل</a>
+
+        <div class="navbar-nav ms-auto">
+
+            <!-- ليش؟ نتحقق إذا المستخدم مسجل دخوله -->
+            {% if user.is_authenticated %}
+                <!-- المستخدم مسجل دخوله - تظهر هذي العناصر -->
+                <a class="nav-link" href="/customers/">العملاء</a>
+                <a class="nav-link" href="/deliverys/">التوصيل</a>
+
+                <!-- تظهر فقط للمدراء والـ Admin -->
+                {% if user.is_superuser or user.groups.all.0.name == 'managers' %}
+                    <a class="nav-link text-success" href="/customers/add/">+ عميل</a>
+                    <a class="nav-link text-success" href="/deliverys/add/">+ توصيل</a>
+                {% endif %}
+
+                <span class="nav-link text-warning">👤 {{ user.username }}</span>
+                <a class="nav-link text-danger" href="/logout/">تسجيل خروج</a>
+            {% else %}
+                <!-- المستخدم غير مسجل - تظهر هذي -->
+                <a class="nav-link" href="/login/">تسجيل دخول</a>
+                <a class="nav-link" href="/register/">إنشاء حساب</a>
+            {% endif %}
+
+        </div>
+    </div>
+</nav>
