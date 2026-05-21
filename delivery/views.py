@@ -12,6 +12,7 @@ from .forms import RegisterForm, LoginForm, DeliveryForm
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 from .serializers import DeliverySerializer
 
 
@@ -133,6 +134,8 @@ class DeliveryDeleteView(LoginRequiredMixin, ManagerRequiredMixin, View):
 #         return JsonResponse(serializer.data, safe=False)
 
 class DeliveryAPIView(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request):
         deliveries = Delivery.objects.all()
         serializer = DeliverySerializer(deliveries, many=True)
@@ -147,6 +150,8 @@ class DeliveryAPIView(APIView):
 
 
 class DeliveryAPIDetailView(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request, pk):
         delivery = get_object_or_404(Delivery, pk=pk)
         serializer = DeliverySerializer(delivery)

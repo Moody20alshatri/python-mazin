@@ -13,6 +13,7 @@ from .forms import RegisterForm, LoginForm, CustomerForm
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import AllowAny
 from .serializers import CustomerSerializer
 
 
@@ -134,6 +135,8 @@ class CustomerDeleteView(LoginRequiredMixin, ManagerRequiredMixin, View):
 #         return JsonResponse(serializer.data, safe=False)
 
 class CustomerAPIView(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request):
         customers = Customer.objects.all()
         serializer = CustomerSerializer(customers, many=True)
@@ -148,6 +151,8 @@ class CustomerAPIView(APIView):
 
 
 class CustomerAPIDetailView(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request, pk):
         customer = get_object_or_404(Customer, pk=pk)
         serializer = CustomerSerializer(customer)
