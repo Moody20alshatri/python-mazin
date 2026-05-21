@@ -125,7 +125,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATIC_ROOT = '/home/mphashatri/static'
+STATIC_ROOT = '/home/modyshatri/static'
 
 # إعدادات REST Framework
 REST_FRAMEWORK = {
